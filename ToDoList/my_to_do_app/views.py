@@ -22,10 +22,11 @@ def createTodo(request):
     #return HttpResponse("Create Todo를 할거야! =>" + user_input_str) 새로운페이지에서 데이터베이스에 문자열을 그려준다
 
 
-def deleteTodo(request):
+def doneTodo(request):
     data = request.GET
     done_todo_id = data['todoNum']
     print("완료한 todo의 id",done_todo_id)
     todo=Todo.objects.get(id=done_todo_id)
-    todo.delete()
+    todo.isDone=True
+    todo.save()
     return HttpResponseRedirect(reverse('index'))
